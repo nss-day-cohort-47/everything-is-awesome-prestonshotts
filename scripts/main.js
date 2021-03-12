@@ -5,13 +5,24 @@ import { makeLegoList } from './legos/LegoList.js';
 const navElement = document.querySelector("nav");
 
 navElement.addEventListener("click", (event) => {
-	if (event.target.id === "showBlue") {
-		filterLegos("Blue")
+	if (event.target.id === "showGreen") {
+		filterLegos("Green")
 	} else if (event.target.id === "showAll") {
 		makeLegoList(useLegos())
 	}
 })
 
+navElement.addEventListener("click", (event) => {
+	if (event.target.id === "showRed") {
+		filterLegos("Red")
+	} else if (event.target.id === "showAll") {
+		makeLegoList(useLegos())
+	}
+})
+
+
+
+//used to filter lego by name
 const filterLegos = (whatFilter) => {
 	const filterArray = useLegos().filter(singleLego => {
 		if (singleLego.LegoName.includes(whatFilter)) {
@@ -29,5 +40,29 @@ const startEIA = () => {
 	})
 
 }
+
+
+const materialElement = document.querySelector("#materialOption")
+materialElement.addEventListener("change", (event) => {
+	if (event.target.id === "materialOption") {
+		const materialValue = (event.target.value);
+		filterLegosMaterial(materialValue)
+		console.log("we made it")
+	} else if (event.target.id === "showAll") {
+		makeLegoList(useLegos())
+	}
+})
+
+// used to filter the lego materials
+const filterLegosMaterial = (whatFilter) => {
+	const filterArray = useLegos().filter(singleLego => {
+		if (singleLego.Material.includes(whatFilter)) {
+			return singleLego;
+		}
+	})
+	makeLegoList(filterArray);
+}
+
+
 
 startEIA();
